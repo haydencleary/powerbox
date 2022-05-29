@@ -1,3 +1,9 @@
+<script lang="ts">
+	import Button from '$components/Button.svelte';
+	import EditTask from '$components/EditTask.svelte';
+	import ViewTask from '$components/ViewTask.svelte';
+</script>
+
 <div class="h-full flex">
 	<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 	<div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
@@ -237,33 +243,19 @@
 						aria-label="Sections"
 						class="hidden flex-shrink-0 w-96 bg-white border-r border-slate-200 xl:flex xl:flex-col"
 					>
-						<div class="flex-shrink-0 h-16 px-6 border-b border-slate-200 flex items-center">
+						<div
+							class="flex-shrink-0 h-16 px-6 border-b border-slate-200 flex items-center justify-between"
+						>
 							<p class="text-lg font-medium text-slate-900">Tasks</p>
+							<Button
+								on:click={() => {
+									alert('test');
+								}}>New</Button
+							>
 						</div>
 						<div class="flex-1 min-h-0 overflow-y-auto">
-							<div class="hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200">
-								<div>
-									<input type="checkbox" class="rounded" />
-								</div>
-								<div class="ml-3">
-									<p class="font-medium text-slate-900">Title</p>
-									<p class="mt-1 text-slate-500 text-sm">
-										Ullamcorper id at suspendisse nec id volutpat vestibulum enim. Interdum blandit.
-									</p>
-									<details class="mt-3 text-sm">
-										<summary>Expand</summary>
-
-										<label class="flex flex-col text-sm font-medium text-slate-900 mt-2">
-											<span>Impact</span>
-											<input type="range" step="1" min="0" max="10" value="5" class="mt-1" />
-										</label>
-										<label class="flex flex-col text-sm font-medium text-slate-900 mt-2">
-											<span>Urgency</span>
-											<input type="range" step="1" min="0" max="10" value="5" class="mt-1" />
-										</label>
-									</details>
-								</div>
-							</div>
+							<ViewTask />
+							<EditTask />
 						</div>
 					</nav>
 
