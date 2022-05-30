@@ -5,6 +5,6 @@ export interface Task {
 	title: string;
 	description?: string;
 	status: TaskStatus;
-	urgency: number;
-	impact: number;
+	urgency: string;
+	impact: string;
 }
