@@ -1,7 +1,13 @@
 <script lang="ts">
+	import { tasks } from '$stores/taskStore';
+
 	import Button from '$components/Button.svelte';
 	import EditTask from '$components/EditTask.svelte';
 	import ViewTask from '$components/ViewTask.svelte';
+	import { create_bidirectional_transition, loop_guard } from 'svelte/internal';
+
+	let createTask = false;
+	let editing: string | null = null;
 </script>
 
 <div class="h-full flex">
@@ -249,13 +255,35 @@
 							<p class="text-lg font-medium text-slate-900">Tasks</p>
 							<Button
 								on:click={() => {
-									alert('test');
+									createTask = true;
 								}}>New</Button
 							>
 						</div>
 						<div class="flex-1 min-h-0 overflow-y-auto">
-							<ViewTask />
-							<EditTask />
+							{#each $tasks as task}
+								{#if task.id === editing}
+									<EditTask
+										{task}
+										on:cancel={() => {
+											editing = null;
+										}}
+									/>
+								{:else}
+									<ViewTask
+										{task}
+										on:edit={(event) => {
+											editing = event.detail;
+										}}
+									/>
+								{/if}
+							{/each}
+							{#if createTask}
+								<EditTask
+									on:cancel={() => {
+										createTask = false;
+									}}
+								/>
+							{/if}
 						</div>
 					</nav>
 

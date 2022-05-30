@@ -1,31 +1,68 @@
 <script lang="ts">
-	export let title = '';
-	export let description = '';
-	export let status = 'TODO';
-	export let urgency = 5;
-	export let impact = 5;
+	import { createEventDispatcher } from 'svelte';
+
+	import Field from '$components/Field.svelte';
+
+	import type { Task } from '$types/task';
+
+	export let task: Task;
+
+	$: ({ id, title, description, status, urgency, impact } = task);
+
+	const STATUS_TODO = 'todo';
+	const STATUS_DONE = 'done';
+
+	const taskDone = status === STATUS_DONE;
+
+	const dispatch = createEventDispatcher();
+
+	function handleStatusChange(e: Event) {
+		const target = e.target as HTMLInputElement;
+
+		if (target.checked) {
+			status = STATUS_DONE;
+		} else {
+			status = STATUS_TODO;
+		}
+
+		// TODO update store
+	}
 </script>
 
 <article class="hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200">
 	<div>
-		<input type="checkbox" class="rounded" />
+		<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
 	</div>
-	<div class="ml-3">
-		<p class="font-medium text-slate-900">{title}</p>
-		<p class="mt-1 text-slate-500 text-sm">
-			{description}
-		</p>
-		<details class="mt-3 text-sm">
-			<summary>Expand</summary>
+	<div class="ml-3 w-full space-y-3">
+		<div class="flex justify-between gap-4 items-start">
+			<p class="font-medium text-slate-900">{title}</p>
+			<button
+				on:click={() => {
+					dispatch('edit', id);
+				}}
+			>
+				Edit
+			</button>
+		</div>
 
-			<label class="flex flex-col text-sm font-medium text-slate-900 mt-2">
-				<span>Impact</span>
-				<input type="range" step="1" min="0" max="10" bind:value={impact} class="mt-1" />
-			</label>
-			<label class="flex flex-col text-sm font-medium text-slate-900 mt-2">
-				<span>Urgency</span>
-				<input type="range" step="1" min="0" max="10" bind:value={urgency} class="mt-1" />
-			</label>
-		</details>
+		{#if description}
+			<p class="mt-1 text-slate-500 text-sm">
+				{description}
+			</p>
+		{/if}
+
+		<div class="flex gap-4">
+			<Field id={`${id}_impact`} label="Impact">
+				<meter id={`${id}_impact`} value={impact} min="0" max="10" low="3" high="7">
+					{impact}/10
+				</meter>
+			</Field>
+
+			<Field id={`${id}_urgency`} label="Urgency">
+				<meter id={`${id}_urgency`} value={urgency} min="0" max="10" low="3" high="7">
+					{urgency}/10
+				</meter>
+			</Field>
+		</div>
 	</div>
 </article>
