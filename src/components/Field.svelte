@@ -3,11 +3,12 @@
 
 	export let id: string;
 	export let label: string;
+	export let required = false;
 	// export let describedby = '';
 </script>
 
 <div>
-	<Label for={id}>{label}</Label>
+	<Label for={id} {required}>{label}</Label>
 	<div class="mt-1">
 		<slot />
 	</div>

@@ -4,6 +4,7 @@
 	export let id: HTMLInputElement['id'];
 	export let placeholder: HTMLInputElement['placeholder'] = '';
 	export let value: HTMLInputElement['value'] = '';
+	export let required: HTMLInputElement['required'] = false;
 	export let describedby = '';
 </script>
 
@@ -13,6 +14,7 @@
 	{id}
 	{placeholder}
 	{value}
+	{required}
 	aria-describedby={describedby}
 	class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded accent-blue"
 />
