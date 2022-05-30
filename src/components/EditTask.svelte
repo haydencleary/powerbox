@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
-	import FieldInput from '$components/FieldInput.svelte';
-	import FieldTextarea from '$components/FieldTextarea.svelte';
+	import Field from '$components/Field.svelte';
+	import Range from '$components/Range.svelte';
+	import Input from '$components/Input.svelte';
+	import Textarea from '$components/Textarea.svelte';
 
 	export let id = '';
 	export let title = '';
@@ -16,32 +18,21 @@
 
 <article class="hover:bg-blue-50 hover:bg-opacity-50 p-6 border-b border-slate-200">
 	<div class="space-y-3">
-		<FieldInput id="new_task_title" name="title" bind:value={title}>Title</FieldInput>
-		<FieldTextarea id="new_task_description" name="description" bind:value={description}>
-			Description
-		</FieldTextarea>
-		<FieldInput
-			id="new_task_impact"
-			name="impact"
-			type="range"
-			bind:value={impactStr}
-			step="1"
-			min="0"
-			max="10"
-		>
-			Impact
-		</FieldInput>
-		<FieldInput
-			id="new_task_urgency"
-			name="urgency"
-			type="range"
-			bind:value={urgencyStr}
-			step="1"
-			min="0"
-			max="10"
-		>
-			Urgency
-		</FieldInput>
+		<Field id="new_task_title" label="Title">
+			<Input id="new_task_title" name="title" bind:value={title} />
+		</Field>
+
+		<Field id="new_task_description" label="Description">
+			<Textarea id="new_task_description" name="description" bind:value={description} />
+		</Field>
+
+		<Field id="new_task_impact" label="Impact">
+			<Range id="new_task_impact" name="impact" bind:value={impactStr} />
+		</Field>
+
+		<Field id="new_task_urgency" label="Urgency">
+			<Range id="new_task_urgency" name="urgency" bind:value={urgencyStr} />
+		</Field>
 	</div>
 	<div class="mt-6 flex justify-end space-x-3">
 		<Button variant="secondary">Cancel</Button>
