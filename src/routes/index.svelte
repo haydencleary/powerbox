@@ -5,7 +5,7 @@
 	import EditTask from '$components/EditTask.svelte';
 	import ViewTask from '$components/ViewTask.svelte';
 
-	let createTask = false;
+	let newTask = false;
 	let editing: string | null = null;
 </script>
 
@@ -254,7 +254,8 @@
 							<p class="text-lg font-medium text-slate-900">Tasks</p>
 							<Button
 								on:click={() => {
-									createTask = true;
+									newTask = true;
+									editing = null;
 								}}>New</Button
 							>
 						</div>
@@ -272,6 +273,7 @@
 										{task}
 										on:edit={(event) => {
 											editing = event.detail;
+											newTask = false;
 										}}
 										on:delete={(event) => {
 											deleteTask(event.detail);
@@ -279,10 +281,10 @@
 									/>
 								{/if}
 							{/each}
-							{#if createTask}
+							{#if newTask}
 								<EditTask
 									on:cancel={() => {
-										createTask = false;
+										newTask = false;
 									}}
 								/>
 							{/if}
