@@ -44,7 +44,7 @@
 		<p class="font-medium text-slate-900">{title}</p>
 
 		{#if description}
-			<p class="mt-1 text-slate-500 text-sm">
+			<p class="mt-1 text-slate-500 text-sm whitespace-pre-line">
 				{description}
 			</p>
 		{/if}
