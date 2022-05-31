@@ -6,6 +6,7 @@
 	export let value: HTMLInputElement['value'] = '';
 	export let required: HTMLInputElement['required'] = false;
 	export let describedby = '';
+	export let autofocus = false;
 </script>
 
 <input
@@ -15,6 +16,7 @@
 	{placeholder}
 	{value}
 	{required}
+	{autofocus}
 	aria-describedby={describedby}
 	class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded accent-blue"
 />

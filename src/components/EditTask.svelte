@@ -60,7 +60,7 @@
 >
 	<div class="space-y-3">
 		<Field id="edit_task_title" label="Title" required>
-			<Input id="edit_task_title" name="title" bind:value={title} required />
+			<Input id="edit_task_title" name="title" bind:value={title} required autofocus />
 		</Field>
 
 		<Field id="edit_task_description" label="Description">
