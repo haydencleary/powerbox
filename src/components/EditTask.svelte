@@ -34,7 +34,7 @@
 	function handleSubmit(e: Event) {
 		const formData = new FormData(e.target as HTMLFormElement);
 
-		// TODO trim text field values
+		// TODO trim text field values before validation
 
 		// Need to set any here because TypeScript doesn't know how to handle formData.entries()
 		const taskEntries = Object.fromEntries((<any>formData).entries());
