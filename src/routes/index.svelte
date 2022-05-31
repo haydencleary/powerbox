@@ -3,6 +3,7 @@
 
 	import Button from '$components/Button.svelte';
 	import EditTask from '$components/EditTask.svelte';
+	import Graph from '$components/Graph.svelte';
 	import ViewTask from '$components/ViewTask.svelte';
 
 	let newTask = false;
@@ -294,7 +295,7 @@
 					<!-- Main content -->
 					<div class="flex-1 xl:overflow-y-auto">
 						<div class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
-							<h1 class="text-3xl font-extrabold text-slate-900">Graph</h1>
+							<Graph />
 						</div>
 					</div>
 				</div>
