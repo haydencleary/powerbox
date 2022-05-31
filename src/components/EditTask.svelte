@@ -7,7 +7,7 @@
 	import Input from '$components/Input.svelte';
 	import Textarea from '$components/Textarea.svelte';
 
-	import { addTask } from '$stores/taskStore';
+	import { createTask, updateTask } from '$stores/taskStore';
 
 	import type { Task } from '$types/task';
 
@@ -22,7 +22,7 @@
 
 	export let task = INITIAL_TASK;
 
-	$: ({ id, title, description, status, urgency, impact } = task);
+	$: ({ title, description, urgency, impact } = task);
 
 	$: urgencyStr = urgency.toString();
 	$: impactStr = impact.toString();
@@ -32,19 +32,24 @@
 	function handleSubmit(e: Event) {
 		const formData = new FormData(e.target as HTMLFormElement);
 
+		// TODO trim text field values
+
 		// Need to set any here because TypeScript doesn't know how to handle formData.entries()
-		const task = Object.fromEntries((<any>formData).entries()) as Task;
+		const taskEntries = Object.fromEntries((<any>formData).entries());
 
-		// TODO handle absent id and status values.
+		const submittedTask = { ...task, ...taskEntries };
 
-		if (id) {
-			// Update task
+		if (submittedTask.id) {
+			updateTask(submittedTask);
 		} else {
-			// New task
-			addTask(task);
+			createTask(submittedTask);
 		}
 
 		// Close form
+		handleCancel();
+	}
+
+	function handleCancel() {
 		dispatch('cancel');
 	}
 </script>
@@ -54,24 +59,24 @@
 	on:submit|preventDefault={handleSubmit}
 >
 	<div class="space-y-3">
-		<Field id="new_task_title" label="Title" required>
-			<Input id="new_task_title" name="title" bind:value={title} required />
+		<Field id="edit_task_title" label="Title" required>
+			<Input id="edit_task_title" name="title" bind:value={title} required />
 		</Field>
 
-		<Field id="new_task_description" label="Description">
-			<Textarea id="new_task_description" name="description" bind:value={description} />
+		<Field id="edit_task_description" label="Description">
+			<Textarea id="edit_task_description" name="description" bind:value={description} />
 		</Field>
 
-		<Field id="new_task_impact" label="Impact">
-			<Range id="new_task_impact" name="impact" bind:value={impactStr} />
+		<Field id="edit_task_impact" label="Impact">
+			<Range id="edit_task_impact" name="impact" bind:value={impactStr} />
 		</Field>
 
-		<Field id="new_task_urgency" label="Urgency">
-			<Range id="new_task_urgency" name="urgency" bind:value={urgencyStr} />
+		<Field id="edit_task_urgency" label="Urgency">
+			<Range id="edit_task_urgency" name="urgency" bind:value={urgencyStr} />
 		</Field>
 	</div>
 	<div class="mt-6 flex justify-end space-x-3">
-		<Button type="reset" variant="secondary" on:click={() => dispatch('cancel')}>Cancel</Button>
+		<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
 		<Button type="submit">Submit</Button>
 	</div>
 </form>
