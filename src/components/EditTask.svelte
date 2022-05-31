@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
+	import { scrollIntoView } from '$actions/scrollIntoView';
+
 	import Button from '$components/Button.svelte';
 	import Field from '$components/Field.svelte';
 	import Range from '$components/Range.svelte';
@@ -57,6 +59,7 @@
 <form
 	class="hover:bg-blue-50 hover:bg-opacity-50 p-6 border-b border-slate-200"
 	on:submit|preventDefault={handleSubmit}
+	use:scrollIntoView
 >
 	<div class="space-y-3">
 		<Field id="edit_task_title" label="Title" required>
