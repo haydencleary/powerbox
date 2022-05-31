@@ -259,7 +259,7 @@
 								}}>New</Button
 							>
 						</div>
-						<div class="flex-1 min-h-0 overflow-y-auto">
+						<div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
 							{#each $tasks as task}
 								{#if task.id === editing}
 									<EditTask

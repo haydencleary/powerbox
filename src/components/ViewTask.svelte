@@ -3,6 +3,9 @@
 
 	import Field from '$components/Field.svelte';
 
+	import EditIcon from '$icons/Edit.svelte';
+	import DeleteIcon from '$icons/Delete.svelte';
+
 	import { updateTask } from '$stores/taskStore';
 
 	import type { Task } from '$types/task';
@@ -31,30 +34,14 @@
 	}
 </script>
 
-<article class="hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200">
+<article
+	class="relative hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200 group overflow-hidden"
+>
 	<div>
 		<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
 	</div>
 	<div class="ml-3 w-full space-y-3">
-		<div class="flex justify-between gap-4 items-start">
-			<p class="font-medium text-slate-900">{title}</p>
-			<div class="flex flex-col">
-				<button
-					on:click={() => {
-						dispatch('edit', id);
-					}}
-				>
-					Edit
-				</button>
-				<button
-					on:click={() => {
-						dispatch('delete', id);
-					}}
-				>
-					Delete
-				</button>
-			</div>
-		</div>
+		<p class="font-medium text-slate-900">{title}</p>
 
 		{#if description}
 			<p class="mt-1 text-slate-500 text-sm">
@@ -75,5 +62,27 @@
 				</meter>
 			</Field>
 		</div>
+	</div>
+	<div
+		class="absolute top-0 bottom-0 right-0 translate-x-full opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition flex flex-col bg-blue-100 bg-opacity-40 backdrop-blur-sm px-4 py-7 gap-6 shadow-md"
+	>
+		<button
+			class="text-blue-500"
+			on:click={() => {
+				dispatch('edit', id);
+			}}
+		>
+			<span class="sr-only">Edit</span>
+			<EditIcon />
+		</button>
+		<button
+			class="text-red-500"
+			on:click={() => {
+				dispatch('delete', id);
+			}}
+		>
+			<span class="sr-only">Delete</span>
+			<DeleteIcon />
+		</button>
 	</div>
 </article>
