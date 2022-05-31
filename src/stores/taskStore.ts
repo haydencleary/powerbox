@@ -10,6 +10,12 @@ export const addTask = (task: Task) => {
 	// TODO update local storage
 };
 
+export const deleteTask = (id: string) => {
+	tasks.update((store) => store.filter((task) => task.id !== id));
+
+	// TODO update local storage
+};
+
 // export const deleteTodo = (id) => {
 // 	todos.update((todos) => todos.filter((todo) => todo.id !== id));
 // };

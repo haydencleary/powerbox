@@ -36,13 +36,22 @@
 	<div class="ml-3 w-full space-y-3">
 		<div class="flex justify-between gap-4 items-start">
 			<p class="font-medium text-slate-900">{title}</p>
-			<button
-				on:click={() => {
-					dispatch('edit', id);
-				}}
-			>
-				Edit
-			</button>
+			<div class="flex flex-col">
+				<button
+					on:click={() => {
+						dispatch('edit', id);
+					}}
+				>
+					Edit
+				</button>
+				<button
+					on:click={() => {
+						dispatch('delete', id);
+					}}
+				>
+					Delete
+				</button>
+			</div>
 		</div>
 
 		{#if description}

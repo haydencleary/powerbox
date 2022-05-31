@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { tasks } from '$stores/taskStore';
+	import { tasks, deleteTask } from '$stores/taskStore';
 
 	import Button from '$components/Button.svelte';
 	import EditTask from '$components/EditTask.svelte';
 	import ViewTask from '$components/ViewTask.svelte';
-	import { create_bidirectional_transition, loop_guard } from 'svelte/internal';
 
 	let createTask = false;
 	let editing: string | null = null;
@@ -273,6 +272,9 @@
 										{task}
 										on:edit={(event) => {
 											editing = event.detail;
+										}}
+										on:delete={(event) => {
+											deleteTask(event.detail);
 										}}
 									/>
 								{/if}
