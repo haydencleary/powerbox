@@ -3,6 +3,8 @@
 
 	import Field from '$components/Field.svelte';
 
+	import { updateTask } from '$stores/taskStore';
+
 	import type { Task } from '$types/task';
 
 	export let task: Task;
@@ -12,7 +14,7 @@
 	const STATUS_TODO = 'todo';
 	const STATUS_DONE = 'done';
 
-	const taskDone = status === STATUS_DONE;
+	$: taskDone = status === STATUS_DONE;
 
 	const dispatch = createEventDispatcher();
 
@@ -25,7 +27,7 @@
 			status = STATUS_TODO;
 		}
 
-		// TODO update store
+		updateTask({ ...task, status });
 	}
 </script>
 
