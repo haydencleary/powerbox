@@ -34,10 +34,10 @@
 	function handleSubmit(e: Event) {
 		const formData = new FormData(e.target as HTMLFormElement);
 
-		// TODO trim text field values before validation
-
 		// Need to set any here because TypeScript doesn't know how to handle formData.entries()
-		const taskEntries = Object.fromEntries((<any>formData).entries());
+		const taskEntries = Object.fromEntries(
+			[...(<any>formData).entries()].map(([name, value]) => [name, value.trim()])
+		);
 
 		const submittedTask = { ...task, ...taskEntries };
 
@@ -63,7 +63,14 @@
 >
 	<div class="space-y-3">
 		<Field id="edit_task_title" label="Title" required>
-			<Input id="edit_task_title" name="title" bind:value={title} required autofocus />
+			<Input
+				id="edit_task_title"
+				name="title"
+				bind:value={title}
+				required
+				autofocus
+				pattern=".*\S+.*"
+			/>
 		</Field>
 
 		<Field id="edit_task_description" label="Description">
