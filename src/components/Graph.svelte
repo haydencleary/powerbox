@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { tooltip } from '$actions/tooltip';
+
 	import { tasks } from '$stores/taskStore';
 
 	const NB_COLUMNS = 10;
@@ -25,24 +27,36 @@
 		});
 </script>
 
-<article class="grid grid-cols-10 grid-rows-[10] w-full aspect-square">
-	{#each cells as tasks, index}
-		{@const row = getRow(index)}
-		{@const column = getColumn(index)}
+<section>
+	<article class="grid grid-cols-10 grid-rows-[10] w-full aspect-square">
+		{#each cells as tasks, index}
+			{@const row = getRow(index)}
+			{@const column = getColumn(index)}
 
-		<div
-			class="flex items-center justify-center border-slate-400 aspect-square"
-			class:border-t-2={row === NB_ROWS / 2}
-			class:border-r-2={column === NB_COLUMNS / 2}
-		>
-			{#each tasks as task}
-				<span class="relative flex h-3 w-3">
+			<div
+				class="relative flex items-center justify-center border-slate-400 aspect-square"
+				class:border-t-2={row === NB_ROWS / 2}
+				class:border-r-2={column === NB_COLUMNS / 2}
+			>
+				{#if row === 5 && column === 1}
+					<span class="absolute top-0 left-0 block text-xs font-bold text-slate-500">Urgency</span>
+				{/if}
+				{#if row === 1 && column === 6}
 					<span
-						class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
-					/>
-					<span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500" />
-				</span>
-			{/each}
-		</div>
-	{/each}
-</article>
+						class="absolute bottom-0 left-0 block text-xs font-bold text-slate-500 -rotate-90 translate-y-4 origin-top-left"
+					>
+						Impact
+					</span>
+				{/if}
+				{#each tasks as task}
+					<span class="relative flex h-4 w-4" use:tooltip={{ content: task.title }}>
+						<span
+							class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+						/>
+						<span class="relative inline-flex rounded-full h-4 w-4 bg-blue-500" />
+					</span>
+				{/each}
+			</div>
+		{/each}
+	</article>
+</section>
