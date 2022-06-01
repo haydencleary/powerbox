@@ -5,7 +5,8 @@
 	const NB_ROWS = 10;
 
 	function getRow(index: number) {
-		return Math.ceil((index + 1) / NB_ROWS);
+		// Substraction is to reverse row order
+		return NB_ROWS - Math.floor(index / NB_ROWS);
 	}
 
 	function getColumn(index: number) {
@@ -14,28 +15,33 @@
 
 	$: cells = Array(100)
 		.fill(null)
-		.map((cell, i) => {
+		.map((_cell, i) => {
 			const row = getRow(i).toString();
 			const column = getColumn(i).toString();
 
 			return $tasks.filter((task) => {
-				return task.urgency === row && task.impact === column;
+				return task.impact === row && task.urgency === column;
 			});
 		});
 </script>
 
-<article class="grid grid-cols-10 grid-rows-[10] w-full aspect-square bg-red-400">
+<article class="grid grid-cols-10 grid-rows-[10] w-full aspect-square">
 	{#each cells as tasks, index}
 		{@const row = getRow(index)}
 		{@const column = getColumn(index)}
 
 		<div
-			class="flex items-center justify-center border-black"
-			class:border-r={column === NB_COLUMNS / 2}
-			class:border-b={row === NB_ROWS / 2}
+			class="flex items-center justify-center border-slate-400 aspect-square"
+			class:border-t-2={row === NB_ROWS / 2}
+			class:border-r-2={column === NB_COLUMNS / 2}
 		>
 			{#each tasks as task}
-				{task.title}
+				<span class="relative flex h-3 w-3">
+					<span
+						class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+					/>
+					<span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500" />
+				</span>
 			{/each}
 		</div>
 	{/each}
