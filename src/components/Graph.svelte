@@ -39,22 +39,29 @@
 				class:border-r-2={column === NB_COLUMNS / 2}
 			>
 				{#if row === 5 && column === 1}
-					<span class="absolute top-0 left-0 block text-xs font-bold text-slate-500">Urgency</span>
+					<span class="absolute top-0 left-0 block text-xs font-semibold text-slate-500">
+						Urgency
+					</span>
 				{/if}
 				{#if row === 1 && column === 6}
 					<span
-						class="absolute bottom-0 left-0 block text-xs font-bold text-slate-500 -rotate-90 translate-y-4 origin-top-left"
+						class="absolute bottom-0 left-0 block text-xs font-semibold text-slate-500 -rotate-90 translate-y-4 origin-top-left"
 					>
 						Impact
 					</span>
 				{/if}
 				{#each tasks as task}
-					<span class="relative flex h-4 w-4" use:tooltip={{ content: task.title }}>
+					<div
+						class="relative flex h-4 w-4"
+						use:tooltip={{
+							content: task.title
+						}}
+					>
 						<span
 							class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
 						/>
 						<span class="relative inline-flex rounded-full h-4 w-4 bg-blue-500" />
-					</span>
+					</div>
 				{/each}
 			</div>
 		{/each}
