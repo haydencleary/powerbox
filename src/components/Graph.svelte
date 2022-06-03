@@ -50,19 +50,27 @@
 						Impact
 					</span>
 				{/if}
-				{#each tasks as task}
-					<div
-						class="relative flex h-4 w-4"
-						use:tooltip={{
-							content: task.title
-						}}
-					>
+
+				{#if tasks.length}
+					<div class="relative flex h-4 w-4">
 						<span
 							class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
 						/>
-						<span class="relative inline-flex rounded-full h-4 w-4 bg-blue-500" />
+						<span
+							class="relative inline-flex rounded-full h-4 w-4 bg-blue-500"
+							use:tooltip={{
+								content: `<ul class="list-disc list-inside whitespace-nowrap">${tasks.reduce(
+									(acc, task) => {
+										return `${acc}<li><a href="#${task.id}">${task.title}</a></li>`;
+									},
+									''
+								)}</ul>`,
+								allowHTML: true
+							}}
+							tabindex="0"
+						/>
 					</div>
-				{/each}
+				{/if}
 			</div>
 		{/each}
 	</article>

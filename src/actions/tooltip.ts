@@ -6,9 +6,15 @@ interface TooltipOptions extends Partial<Props> {
 }
 
 export function tooltip(node: HTMLElement, options: TooltipOptions) {
-	const instance = tippy(node, { interactive: true, ...options });
+	const instance = tippy(node, {
+		interactive: true,
+		...options
+	});
 
 	return {
+		update: ({ content }: { content: string }) => {
+			instance.setContent(content);
+		},
 		destroy: () => {
 			instance.destroy();
 		}

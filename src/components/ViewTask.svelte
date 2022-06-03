@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { page } from '$app/stores';
 
 	import Field from '$components/Field.svelte';
 
@@ -19,6 +20,12 @@
 
 	$: taskDone = status === STATUS_DONE;
 
+	$: ({
+		url: { hash }
+	} = $page);
+
+	$: isHighlighted = hash === `#${task.id}`;
+
 	const dispatch = createEventDispatcher();
 
 	function handleStatusChange(e: Event) {
@@ -35,7 +42,10 @@
 </script>
 
 <article
-	class="relative hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200 group overflow-hidden"
+	id={task.id}
+	class={`relative hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200 group overflow-hidden transition ${
+		isHighlighted ? 'shadow-inner shadow-blue-500/50' : ''
+	}`}
 >
 	<div>
 		<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
