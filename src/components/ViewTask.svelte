@@ -43,56 +43,58 @@
 
 <article
 	id={task.id}
-	class={`relative hover:bg-blue-50 hover:bg-opacity-50 flex p-6 border-b border-slate-200 group overflow-hidden transition ${
+	class={`relative hover:bg-blue-50 hover:bg-opacity-50 flex border-b border-slate-200 group overflow-hidden transition justify-center ${
 		isHighlighted ? 'shadow-inner shadow-blue-500/50' : ''
 	}`}
 >
-	<div>
-		<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
-	</div>
-	<div class="ml-3 w-full space-y-3">
-		<p class="font-medium text-slate-900">{title}</p>
-
-		{#if description}
-			<p class="mt-1 text-slate-500 text-sm whitespace-pre-line">
-				{description}
-			</p>
-		{/if}
-
-		<div class="flex gap-4">
-			<Field id={`${id}_impact`} label="Impact">
-				<meter id={`${id}_impact`} value={impact} min="0" max="10" low="3" high="7">
-					{impact}/10
-				</meter>
-			</Field>
-
-			<Field id={`${id}_urgency`} label="Urgency">
-				<meter id={`${id}_urgency`} value={urgency} min="0" max="10" low="3" high="7">
-					{urgency}/10
-				</meter>
-			</Field>
+	<div class="flex w-full max-w-3xl px-4 py-6 sm:px-6">
+		<div>
+			<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
 		</div>
-	</div>
-	<div
-		class="absolute top-0 bottom-0 right-0 translate-x-full opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition flex flex-col bg-blue-100 bg-opacity-40 backdrop-blur-sm px-4 py-7 gap-6 shadow-md"
-	>
-		<button
-			class="text-blue-500"
-			on:click={() => {
-				dispatch('edit', id);
-			}}
+		<div class="ml-3 w-full space-y-3">
+			<p class="font-medium text-slate-900">{title}</p>
+
+			{#if description}
+				<p class="mt-1 text-slate-500 text-sm whitespace-pre-line">
+					{description}
+				</p>
+			{/if}
+
+			<div class="flex gap-4">
+				<Field id={`${id}_impact`} label="Impact">
+					<meter id={`${id}_impact`} value={impact} min="0" max="10" low="3" high="7">
+						{impact}/10
+					</meter>
+				</Field>
+
+				<Field id={`${id}_urgency`} label="Urgency">
+					<meter id={`${id}_urgency`} value={urgency} min="0" max="10" low="3" high="7">
+						{urgency}/10
+					</meter>
+				</Field>
+			</div>
+		</div>
+		<div
+			class="absolute top-0 bottom-0 right-0 translate-x-full opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition flex flex-col bg-blue-100 bg-opacity-40 backdrop-blur-sm px-4 py-7 gap-6 shadow-md"
 		>
-			<span class="sr-only">Edit</span>
-			<EditIcon />
-		</button>
-		<button
-			class="text-red-500"
-			on:click={() => {
-				dispatch('delete', id);
-			}}
-		>
-			<span class="sr-only">Delete</span>
-			<DeleteIcon />
-		</button>
+			<button
+				class="text-blue-500"
+				on:click={() => {
+					dispatch('edit', id);
+				}}
+			>
+				<span class="sr-only">Edit</span>
+				<EditIcon />
+			</button>
+			<button
+				class="text-red-500"
+				on:click={() => {
+					dispatch('delete', id);
+				}}
+			>
+				<span class="sr-only">Delete</span>
+				<DeleteIcon />
+			</button>
+		</div>
 	</div>
 </article>
