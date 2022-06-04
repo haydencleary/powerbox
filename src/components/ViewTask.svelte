@@ -10,15 +10,13 @@
 	import { updateTask } from '$stores/taskStore';
 
 	import type { Task } from '$types/task';
+	import { TASK_STATUS_DONE, TASK_STATUS_TODO } from '$types/task';
 
 	export let task: Task;
 
 	$: ({ id, title, description, status, urgency, impact } = task);
 
-	const STATUS_TODO = 'todo';
-	const STATUS_DONE = 'done';
-
-	$: taskDone = status === STATUS_DONE;
+	$: isDone = status === TASK_STATUS_DONE;
 
 	$: ({
 		url: { hash }
@@ -32,9 +30,9 @@
 		const target = e.target as HTMLInputElement;
 
 		if (target.checked) {
-			status = STATUS_DONE;
+			status = TASK_STATUS_DONE;
 		} else {
-			status = STATUS_TODO;
+			status = TASK_STATUS_TODO;
 		}
 
 		updateTask({ ...task, status });
@@ -49,10 +47,17 @@
 >
 	<div class="flex w-full max-w-3xl px-4 py-6 sm:px-6">
 		<div>
-			<input type="checkbox" class="rounded" checked={taskDone} on:change={handleStatusChange} />
+			<input type="checkbox" class="rounded" checked={isDone} on:change={handleStatusChange} />
 		</div>
 		<div class="ml-3 w-full space-y-3">
-			<p class="font-medium text-slate-900">{title}</p>
+			<p
+				class="font-medium"
+				class:text-slate-900={!isDone}
+				class:text-slate-500={isDone}
+				class:line-through={isDone}
+			>
+				{title}
+			</p>
 
 			{#if description}
 				<p class="mt-1 text-slate-500 text-sm whitespace-pre-line">
@@ -60,20 +65,24 @@
 				</p>
 			{/if}
 
-			<div class="flex gap-4">
-				<Field id={`${id}_impact`} label="Impact">
-					<meter id={`${id}_impact`} value={impact} min="0" max="10" low="3" high="7">
-						{impact}/10
-					</meter>
-				</Field>
+			{#if !isDone}
+				<div class="flex gap-4">
+					<Field id={`${id}_impact`} label="Impact">
+						<meter id={`${id}_impact`} value={impact} min="0" max="10" low="3" high="7">
+							{impact}/10
+						</meter>
+					</Field>
 
-				<Field id={`${id}_urgency`} label="Urgency">
-					<meter id={`${id}_urgency`} value={urgency} min="0" max="10" low="3" high="7">
-						{urgency}/10
-					</meter>
-				</Field>
-			</div>
+					<Field id={`${id}_urgency`} label="Urgency">
+						<meter id={`${id}_urgency`} value={urgency} min="0" max="10" low="3" high="7">
+							{urgency}/10
+						</meter>
+					</Field>
+				</div>
+			{/if}
 		</div>
+
+		<!-- TODO hide this when done ? -->
 		<div
 			class="absolute top-0 bottom-0 right-0 translate-x-full opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition flex flex-col bg-blue-100 bg-opacity-40 backdrop-blur-sm px-4 py-7 gap-6 shadow-md"
 		>

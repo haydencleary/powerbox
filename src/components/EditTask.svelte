@@ -3,6 +3,7 @@
 
 	import { scrollIntoView } from '$actions/scrollIntoView';
 
+	import Badge from '$components/Badge.svelte';
 	import Button from '$components/Button.svelte';
 	import Field from '$components/Field.svelte';
 	import Range from '$components/Range.svelte';
@@ -12,6 +13,7 @@
 	import { createTask, updateTask } from '$stores/taskStore';
 
 	import type { Task } from '$types/task';
+	import { TASK_STATUS_DONE } from '$types/task';
 
 	const INITIAL_TASK: Task = {
 		id: '',
@@ -24,7 +26,9 @@
 
 	export let task = INITIAL_TASK;
 
-	$: ({ title, description, urgency, impact } = task);
+	$: ({ title, description, status, urgency, impact } = task);
+
+	$: isDone = status === TASK_STATUS_DONE;
 
 	$: urgencyStr = urgency.toString();
 	$: impactStr = impact.toString();
@@ -85,8 +89,16 @@
 			<Range id="edit_task_urgency" name="urgency" bind:value={urgencyStr} />
 		</Field>
 	</div>
-	<div class="mt-6 flex justify-end space-x-3">
-		<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
-		<Button type="submit">Submit</Button>
+
+	<div class="mt-6 flex justify-between items-center">
+		<div>
+			<span class="text-sm text-slate-900">Status</span>: <Badge variant={isDone ? 'done' : 'todo'}>
+				{isDone ? 'Done' : 'Todo'}
+			</Badge>
+		</div>
+		<div class="flex space-x-3">
+			<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
+			<Button type="submit">Submit</Button>
+		</div>
 	</div>
 </form>
