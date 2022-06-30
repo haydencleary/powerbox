@@ -51,7 +51,7 @@
 				class:block={tab === TAB_TASKS}
 				class:hidden={tab !== TAB_TASKS}
 			>
-				<div class="flex-shrink-0 border-b border-slate-200 flex justify-center">
+				<div class="flex-col flex-shrink-0 border-b border-slate-200 flex justify-center">
 					<div class="flex items-center justify-between w-full max-w-3xl h-16 px-4 sm:px-6">
 						<p class="text-lg font-medium text-slate-900">Tasks</p>
 						<Button
@@ -63,27 +63,57 @@
 					</div>
 				</div>
 				<div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scroll-smooth">
-					{#each $tasks as task (task.id)}
-						{#if task.id === editing}
-							<EditTask
-								{task}
-								on:cancel={() => {
-									editing = null;
+					{#if $tasks.length}
+						{#each $tasks as task (task.id)}
+							{#if task.id === editing}
+								<EditTask
+									{task}
+									on:cancel={() => {
+										editing = null;
+									}}
+								/>
+							{:else}
+								<ViewTask
+									{task}
+									on:edit={(event) => {
+										editing = event.detail;
+										newTask = false;
+									}}
+									on:delete={(event) => {
+										deleteTask(event.detail);
+									}}
+								/>
+							{/if}
+						{/each}
+					{:else if !newTask}
+						<div class="max-w-3xl mx-auto px-4 sm:px-6 py-6">
+							<button
+								type="button"
+								class="relative block w-full border-2 border-slate-300 border-dashed rounded p-12 text-center hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+								on:click={() => {
+									newTask = true;
 								}}
-							/>
-						{:else}
-							<ViewTask
-								{task}
-								on:edit={(event) => {
-									editing = event.detail;
-									newTask = false;
-								}}
-								on:delete={(event) => {
-									deleteTask(event.detail);
-								}}
-							/>
-						{/if}
-					{/each}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="mx-auto h-12 w-12 text-slate-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+									/>
+								</svg>
+								<span class="mt-2 block text-sm font-medium text-slate-900">
+									Create a new task
+								</span>
+							</button>
+						</div>
+					{/if}
 					{#if newTask}
 						<EditTask
 							on:cancel={() => {
