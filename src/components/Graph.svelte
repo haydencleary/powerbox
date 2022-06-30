@@ -3,6 +3,8 @@
 
 	import { tasks } from '$stores/taskStore';
 
+	import { TASK_STATUS_DONE } from '$types/task';
+
 	const NB_COLUMNS = 10;
 	const NB_ROWS = 10;
 
@@ -61,7 +63,9 @@
 							use:tooltip={{
 								content: `<ul class="list-disc list-inside whitespace-nowrap">${tasks.reduce(
 									(acc, task) => {
-										return `${acc}<li><a href="#${task.id}">${task.title}</a></li>`;
+										return `${acc}<li><a href="#${task.id}" class="${
+											task.status === TASK_STATUS_DONE ? 'line-through' : ''
+										}">${task.title}</a></li>`;
 									},
 									''
 								)}</ul>`,
