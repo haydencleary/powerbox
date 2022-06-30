@@ -52,7 +52,7 @@
 				class:hidden={tab !== TAB_TASKS}
 			>
 				<div class="flex-col flex-shrink-0 border-b border-slate-200 flex justify-center">
-					<div class="flex items-center justify-between w-full max-w-3xl h-16 px-4 sm:px-6">
+					<div class="flex items-center justify-between w-full max-w-3xl mx-auto h-16 px-4 sm:px-6">
 						<p class="text-lg font-medium text-slate-900">Tasks</p>
 						<Button
 							on:click={() => {

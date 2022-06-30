@@ -61,43 +61,45 @@
 </script>
 
 <form
-	class="hover:bg-blue-50 hover:bg-opacity-50 p-6 border-b border-slate-200"
+	class="hover:bg-blue-50 hover:bg-opacity-50 border-b border-slate-200"
 	on:submit|preventDefault={handleSubmit}
 	use:scrollIntoView
 >
-	<div class="space-y-3">
-		<Field id="edit_task_title" label="Title" required>
-			<Input
-				id="edit_task_title"
-				name="title"
-				bind:value={title}
-				required
-				autofocus
-				pattern=".*\S+.*"
-			/>
-		</Field>
+	<div class="max-w-3xl mx-auto px-4 py-6 sm:px-6">
+		<div class="space-y-3">
+			<Field id="edit_task_title" label="Title" required>
+				<Input
+					id="edit_task_title"
+					name="title"
+					bind:value={title}
+					required
+					autofocus
+					pattern=".*\S+.*"
+				/>
+			</Field>
 
-		<Field id="edit_task_description" label="Description">
-			<Textarea id="edit_task_description" name="description" bind:value={description} />
-		</Field>
+			<Field id="edit_task_description" label="Description">
+				<Textarea id="edit_task_description" name="description" bind:value={description} />
+			</Field>
 
-		<Field id="edit_task_impact" label="Impact">
-			<Range id="edit_task_impact" name="impact" bind:value={impactStr} />
-		</Field>
+			<Field id="edit_task_impact" label="Impact">
+				<Range id="edit_task_impact" name="impact" bind:value={impactStr} />
+			</Field>
 
-		<Field id="edit_task_urgency" label="Urgency">
-			<Range id="edit_task_urgency" name="urgency" bind:value={urgencyStr} />
-		</Field>
-	</div>
+			<Field id="edit_task_urgency" label="Urgency">
+				<Range id="edit_task_urgency" name="urgency" bind:value={urgencyStr} />
+			</Field>
+		</div>
 
-	<div class="mt-6 flex justify-between items-center">
-		<Badge variant={isDone ? 'done' : 'todo'}>
-			{isDone ? 'Done' : 'Todo'}
-		</Badge>
+		<div class="mt-6 flex justify-between items-center">
+			<Badge variant={isDone ? 'done' : 'todo'}>
+				{isDone ? 'Done' : 'Todo'}
+			</Badge>
 
-		<div class="flex space-x-3">
-			<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
-			<Button type="submit">Submit</Button>
+			<div class="flex space-x-3">
+				<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
+				<Button type="submit">Submit</Button>
+			</div>
 		</div>
 	</div>
 </form>
