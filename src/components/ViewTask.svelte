@@ -38,9 +38,9 @@
 
 <article
 	id={task.id}
-	class={`relative hover:bg-blue-50 hover:bg-opacity-50 flex border-b border-slate-200 group transition justify-center ${
-		isHighlighted ? 'shadow-inner shadow-blue-500/50' : ''
-	}`}
+	class="relative hover:bg-blue-50 hover:bg-opacity-50 flex border-b border-slate-200 transition justify-center border-r-4"
+	class:border-r-slate-400={isHighlighted}
+	class:border-r-transparent={!isHighlighted}
 >
 	<div class="flex w-full max-w-3xl px-4 py-6 sm:px-6">
 		<div>

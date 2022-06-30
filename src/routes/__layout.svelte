@@ -91,7 +91,8 @@
 						</div>
 						<nav aria-label="Sidebar" class="mt-5 flex flex-1 flex-col">
 							<div class="px-2 space-y-1 flex flex-1 flex-col justify-between">
-								<div
+								<a
+									href="/"
 									class="group p-2 rounded-md flex items-center text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900"
 								>
 									<!-- Heroicon name: outline/document-text -->
@@ -110,7 +111,7 @@
 										/>
 									</svg>
 									Tasks
-								</div>
+								</a>
 
 								<a
 									href="https://github.com/haydencleary/powerbox"
@@ -177,7 +178,7 @@
 						aria-label="Sidebar"
 						class="py-6 flex flex-1 flex-col items-center space-y-3 justify-between"
 					>
-						<div class="flex items-center p-4 rounded-lg text-blue-200 hover:bg-blue-700">
+						<a href="/" class="flex items-center p-4 rounded-lg text-blue-200 hover:bg-blue-700">
 							<!-- Heroicon name: outline/document-text -->
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +195,7 @@
 								/>
 							</svg>
 							<span class="sr-only">Tasks</span>
-						</div>
+						</a>
 
 						<a
 							href="https://github.com/haydencleary/powerbox"
