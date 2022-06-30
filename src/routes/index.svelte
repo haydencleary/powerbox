@@ -27,14 +27,14 @@
 				<span class="relative z-0 inline-flex shadow-sm rounded w-full">
 					<button
 						type="button"
-						class={`relative w-1/2 inline-flex items-center justify-center px-4 py-2 rounded-l border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 ${
+						class={`relative w-1/2 inline-flex items-center justify-center px-4 py-2 rounded-l border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ${
 							tab === TAB_TASKS ? 'bg-slate-50' : 'bg-white'
 						}`}
 						on:click={() => handleTab(TAB_TASKS)}>Tasks</button
 					>
 					<button
 						type="button"
-						class={`-ml-px relative w-1/2 inline-flex items-center justify-center px-4 py-2 rounded-r border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 ${
+						class={`-ml-px relative w-1/2 inline-flex items-center justify-center px-4 py-2 rounded-r border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ${
 							tab === TAB_GRAPH ? 'bg-slate-50' : 'bg-white'
 						}`}
 						on:click={() => handleTab(TAB_GRAPH)}>Graph</button
