@@ -91,11 +91,10 @@
 	</div>
 
 	<div class="mt-6 flex justify-between items-center">
-		<div>
-			<span class="text-sm text-slate-900">Status</span>: <Badge variant={isDone ? 'done' : 'todo'}>
-				{isDone ? 'Done' : 'Todo'}
-			</Badge>
-		</div>
+		<Badge variant={isDone ? 'done' : 'todo'}>
+			{isDone ? 'Done' : 'Todo'}
+		</Badge>
+
 		<div class="flex space-x-3">
 			<Button type="reset" variant="secondary" on:click={handleCancel}>Cancel</Button>
 			<Button type="submit">Submit</Button>
