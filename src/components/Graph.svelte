@@ -4,6 +4,7 @@
 	import { tasks } from '$stores/taskStore';
 
 	import { TASK_STATUS_DONE } from '$types/task';
+	import type { Task } from '$types/task';
 
 	const NB_COLUMNS = 10;
 	const NB_ROWS = 10;
@@ -15,6 +16,30 @@
 
 	function getColumn(index: number) {
 		return Math.ceil((index + 1) % NB_COLUMNS) || NB_COLUMNS;
+	}
+
+	function getDotColors(tasks: Task[]) {
+		// All task impact and urgency values are the same here, so the first one will do.
+		const [{ impact: impactStr, urgency: urgencyStr }] = tasks;
+		const impact = parseInt(impactStr);
+		const urgency = parseInt(urgencyStr);
+
+		const colors = {
+			main: 'bg-blue-500',
+			background: 'bg-blue-400'
+		};
+
+		if (impact > 5 && urgency > 5) {
+			colors.main = 'bg-red-500';
+			colors.background = 'bg-red-400';
+		}
+
+		if (impact <= 5 && urgency <= 5) {
+			colors.main = 'bg-green-500';
+			colors.background = 'bg-green-400';
+		}
+
+		return colors;
 	}
 
 	$: cells = Array(100)
@@ -54,12 +79,13 @@
 				{/if}
 
 				{#if tasks.length}
+					{@const colors = getDotColors(tasks)}
 					<div class="relative flex h-4 w-4">
 						<span
-							class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+							class={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${colors.background}`}
 						/>
 						<span
-							class="relative inline-flex rounded-full h-4 w-4 bg-blue-500"
+							class={`relative inline-flex rounded-full h-4 w-4 ${colors.main}`}
 							use:tooltip={{
 								content: `<ul class="list-disc list-inside whitespace-nowrap">${tasks.reduce(
 									(acc, task) => {
