@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	import { scrollIntoView } from '$actions/scrollIntoView';
+	import { tooltip } from '$actions/tooltip';
 
 	import Badge from '$components/Badge.svelte';
 	import Button from '$components/Button.svelte';
@@ -21,12 +22,13 @@
 		description: '',
 		status: 'todo',
 		urgency: '5',
-		impact: '5'
+		impact: '5',
+		obt: false
 	};
 
 	export let task = INITIAL_TASK;
 
-	$: ({ title, description, status, urgency, impact } = task);
+	$: ({ title, description, status, urgency, impact, obt } = task);
 
 	$: isDone = status === TASK_STATUS_DONE;
 
@@ -38,12 +40,21 @@
 	function handleSubmit(e: Event) {
 		const formData = new FormData(e.target as HTMLFormElement);
 
+		// If the `obt` checkbox isn't checked, no value is returned.
+		// We also want the value to be a boolean so we have to set it manually, as inputs return strings or numbers.
+		let obt = false;
+
+		if (formData.has('obt')) {
+			obt = true;
+		}
+
 		// Need to set any here because TypeScript doesn't know how to handle formData.entries()
 		const taskEntries = Object.fromEntries(
 			[...(<any>formData).entries()].map(([name, value]) => [name, value.trim()])
 		);
 
-		const submittedTask = { ...task, ...taskEntries };
+		// Override any `obt` value that may be returned in `taskEntries`.
+		const submittedTask = { ...task, ...taskEntries, obt };
 
 		if (submittedTask.id) {
 			updateTask(submittedTask);
@@ -89,6 +100,35 @@
 			<Field id="edit_task_urgency" label="Urgency">
 				<Range id="edit_task_urgency" name="urgency" bind:value={urgencyStr} />
 			</Field>
+
+			<div class="flex items-center">
+				<label class="flex items-center text-slate-700">
+					<input type="checkbox" name="obt" class="rounded mr-2" checked={obt} />
+					One big thing
+				</label>
+				<span
+					class="inline-flex text-slate-400 hover:text-slate-500 ml-2 rounded-full"
+					tabindex="0"
+					use:tooltip={{
+						content: 'The most important task to complete. Only one allowed at a time.'
+					}}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+				</span>
+			</div>
 		</div>
 
 		<div class="mt-6 flex justify-between items-center">

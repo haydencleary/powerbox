@@ -11,4 +11,5 @@ export interface Task {
 	status: TaskStatus;
 	urgency: string;
 	impact: string;
+	obt: boolean;
 }
