@@ -87,7 +87,8 @@
 
 					<div class="flex flex-1 flex-col pt-5 pb-4">
 						<div class="flex-shrink-0 flex items-center px-4">
-							<span style="font-size:22px" title="Powerbox">🔥</span>
+							<span style="font-size:22px">🔥</span>
+							<span class="font-semibold ml-2">Powerbox</span>
 						</div>
 						<nav aria-label="Sidebar" class="mt-5 flex flex-1 flex-col">
 							<div class="px-2 space-y-1 flex flex-1 flex-col justify-between">
@@ -240,8 +241,9 @@
 		<!-- Mobile top navigation -->
 		<div class="lg:hidden">
 			<div class="bg-blue-600 py-2 px-4 flex items-center justify-between sm:px-6">
-				<div>
-					<span style="font-size:22px" title="Powerbox">🔥</span>
+				<div class="flex items-center">
+					<span style="font-size:22px">🔥</span>
+					<span class="text-white font-semibold ml-2">Powerbox</span>
 				</div>
 				<div>
 					<button
