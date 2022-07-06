@@ -13,6 +13,6 @@
 		<slot />
 	</div>
 	<!-- {#if $$slots.message}
-		<p class="mt-2 text-sm text-gray-500" id={describedby}><slot name="message" /></p>
+		<p class="mt-2 text-sm text-slate-500" id={describedby}><slot name="message" /></p>
 	{/if} -->
 </div>

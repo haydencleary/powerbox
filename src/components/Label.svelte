@@ -4,6 +4,6 @@
 	export let required = false;
 </script>
 
-<label for={htmlFor} class="block text-sm font-medium text-gray-700">
+<label for={htmlFor} class="block text-sm font-medium text-slate-700">
 	<slot />{#if required}<span class="text-blue-500">*</span>{/if}
 </label>
