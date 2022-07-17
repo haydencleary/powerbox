@@ -11,7 +11,7 @@
 	import Input from '$components/Input.svelte';
 	import Textarea from '$components/Textarea.svelte';
 
-	import { createTask, updateTask } from '$stores/taskStore';
+	import { createTask, updateTask, tasks } from '$stores/taskStore';
 
 	import type { Task } from '$types/task';
 	import { TASK_STATUS_DONE } from '$types/task';
@@ -34,6 +34,8 @@
 
 	$: urgencyStr = urgency.toString();
 	$: impactStr = impact.toString();
+
+	$: disableObt = $tasks.filter((task) => task.obt).length > 0;
 
 	const dispatch = createEventDispatcher();
 
@@ -103,7 +105,13 @@
 
 			<div class="flex items-center">
 				<label class="flex items-center text-slate-700">
-					<input type="checkbox" name="obt" class="rounded mr-2" checked={obt} />
+					<input
+						type="checkbox"
+						name="obt"
+						class="rounded mr-2"
+						checked={obt}
+						disabled={disableObt && !obt}
+					/>
 					One big thing
 				</label>
 				<span
