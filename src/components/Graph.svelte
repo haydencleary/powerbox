@@ -111,7 +111,7 @@
 									(acc, task) => {
 										return `${acc}<li><a href="#${task.id}" class="${
 											task.status === TASK_STATUS_DONE ? 'line-through' : ''
-										}">${task.title}</a></li>`;
+										}">${task.obt ? '⭐️ ' : ''}${task.title}</a></li>`;
 									},
 									''
 								)}</ul>`,
